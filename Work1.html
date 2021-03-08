@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<meta charset="utf-8"/>
+	<script>
+		function checkUserName()
+		{
+			var nameRight = document.getElementById("nameRight");
+			var username = document.getElementById("username").value;
+			var debug = document.getElementById("debug");
+			var len = username.length;
+			var i = 0;
+			for(var j=0;j<len;j++)
+			{
+				console.log(username[j]);
+				
+
+				if((username[j].charCodeAt()>=65&&username[j].charCodeAt()<=90)||(username[j].charCodeAt()>=97&&username[j].charCodeAt()<=122))
+				{
+					i++;
+					break;
+				}
+			}
+			for(var k=0;k<len;k++)
+			{
+				debug.innerHTML=username[k].charCodeAt();
+				if(username[k].charCodeAt()>=48&&username[k].charCodeAt()<=57)
+				{
+					i++;
+					break;
+				}
+			}
+			if(i==2&&len>=6)
+			{
+				nameRight.innerHTML="<font color = green>格式正确</font>";
+			}
+			else
+			{
+				nameRight.innerHTML="格式错误  " ;
+			}
+		}
+		function reg()
+		{
+			var username = document.getElementById("username").value;
+			var myemail = document.getElementById("myemail").value;
+			var stuNum = document.getElementById("stuNum").value;
+			document.getElementById("stuNum")
+			alert('确认注册信息\n'+
+				  '用户名: '+username+'\n'+
+				  '电子邮箱: '+myemail+'\n'+
+				  '学号：'+stuNum+'\n');
+		}
+	</script>
+<form>
+<fieldset>
+	<legend>校园网注册页面</legend>
+	<center>
+		<div style="padding: 5px;width: 600px">
+			<h4>用户信息</h4>
+			<table width="100%">
+				<tr>
+					<td width="20%">用户名</td>
+					<td width="40%"><input id="username" type="text" required="true" onkeyUp="checkUserName()"/></td>
+					<td width="40%"><font id="nameRight" color="red">*</font></td>
+				</tr>
+				<tr>
+					<td>电子邮箱</td>
+					<td><input id="myemail" type="email"/></td>
+					<td><font color="red">*</font></td>
+				</tr>
+				<tr>
+					<td>学号</td>
+					<td><input type="number" id="stuNum"/></td>
+					<td><font color="red">*</font></td>
+				</tr>
+				<tr><td><font id="debug" color="green">*</font></td></tr>
+			</table>
+		</div>
+		<input type="submit" value="注册新用户" onClick="reg()">
+	</center>
+</fieldset>
+</form>
+</html>
