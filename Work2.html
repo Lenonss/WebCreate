@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Clock</title>
+</head>
+<script type="text/javascript">
+	var slen = 70;//定义秒针的长度
+	var mlen = 65;//定义分针的长度
+	var hlen = 45;//定义时针的长度
+	var ls = 0;
+	var lm = 0;
+	var lh = 0;
+	function draw()
+	{
+		var c = document.getElementById("myCanvas");
+		var cxt = c.getContext("2d");
+		cxt.beginPath();
+		cxt.arc(200,150,4,0,2*Math.PI,true);//绘制表盘中心
+		cxt.fill();
+		cxt.closePath();
+		
+		cxt.beginPath();
+		cxt.arc(200,150,100,0,2*Math.PI,true);//绘制表盘外围
+		cxt.stroke();
+		cxt.closePath();
+		
+		cxt.beginPath();
+		cxt.translate(200,150);//平移原点
+		cxt.rotate(-Math.PI/2);
+		cxt.save();
+		for(var i=0;i<60;i++)
+		{
+			if(i%5==0)
+			{
+				cxt.fillRect(80,0,20,5);
+			}
+			else
+			{
+				cxt.fillRect(90,0,10,2);
+			}
+			cxt.rotate(Math.PI/30);//每绘制一个刻度线转一次
+		}
+		cxt.closePath();
+		Refresh();
+		setInterval("Refresh();",1000);//每一秒调用refresh方法刷新各指针一次
+	}
+	function Refresh()
+	{
+		var c = document.getElementById("myCanvas");
+		var cxt = c.getContext("2d");
+		cxt.restore();
+		cxt.save();
+		cxt.rotate(ls*Math.PI/30);
+		cxt.clearRect(5,-1,slen+1,4);//清除秒针上次显示内容
+		cxt.restore();
+		cxt.save();
+		
+		cxt.rotate(lm*Math.PI/30);
+		cxt.clearRect(5,-1,mlen+1,5);//清除分针上次显示内容
+		cxt.restore();
+		cxt.save();
+		
+		cxt.rotate(lh*Math.PI/6);
+		cxt.clearRect(5,-3,hlen+1,6);//清除时针上次显示内容
+		var time = new Date();
+		var s = ls = time.getSeconds();
+		var m = lm = time.getMinutes();
+		var h = lh = time.getHours();
+		cxt.restore();
+		cxt.save();
+		
+		cxt.rotate(s*Math.PI/30);//根据秒针数设置秒针位置
+		cxt.fillRect(5,0,slen,2);//重新绘制秒针
+		cxt.restore();
+		cxt.save();
+		
+		var m1 = parseFloat(s)/60.0 + parseFloat(m);
+		lm=m1;
+		console.log(m1);
+		cxt.rotate(m1*Math.PI/30);//根据分针数设置分针位置
+		cxt.fillRect(5,0,mlen,3);//重新绘制秒针
+		cxt.restore();
+		cxt.save();
+		
+		var h1 = parseFloat(s)/360.0 + parseFloat(h);
+		lh=h1;
+		console.log(h1);
+		cxt.rotate(h1*Math.PI/6);//根据时针数设置秒针位置
+		cxt.fillRect(5,-2,hlen,4);//重新绘制秒针
+	}
+</script>
+<body>
+	<fieldset>
+		<legend>绘制时钟</legend>
+		<canvas id="myCanvas" width="400" height="300"></canvas>
+		<br>
+		<button onClick="draw()">绘图</button>
+	</fieldset>
+</body>
+</html>
