@@ -1,0 +1,327 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>视频播放</title>
+<script>
+	var MusicSrcPath = "";
+	var ImageSrcPath = "";
+	var SongLifeTimeMi = 0;
+	var SongLifeTimeSe = 0;
+	var CurSongLifeTimeMi = 0;
+	var CurSongLifeTimeSe = 0;
+	var PlayStatus = false;
+	//切换至歌曲2
+	function switch2Song2()
+	{
+		MusicSrcPath="song2.mp3";//切换音频源路径
+		ImageSrcPath="song2.jpg";//切换图片源路径
+		SongLifeTimeMi = 4;//设置分钟
+		SongLifeTimeSe = 38;//设置秒针
+		BeginSwitch();//实施切换
+	}
+	//切换至歌曲1
+	function switch2Song1()
+	{
+		MusicSrcPath="song1.mp3";//切换音频源路径
+		ImageSrcPath="song1.jpg";//切换图片源路径
+		SongLifeTimeMi = 3;//设置分钟
+		SongLifeTimeSe = 29;//设置秒针
+		BeginSwitch();//实施切换
+	}
+	function ShowTime()
+	{
+		//暂停不更新进度
+		if(!PlayStatus)
+		{
+			return;
+		}
+		var MusicCtr = document.getElementById("audio1");//播放音频
+		var TimeText = document.getElementById("SongTimeText");//显示时间
+		if(!TimeText)
+		{
+			alert("时间显示html文本组件未找到。");
+			return;
+		}
+				if(!MusicCtr)
+		{
+			alert("音频html组件未找到。");
+			return;
+		}
+		
+		CurSongLifeTimeMi = MusicCtr.currentTime / 60;//除以60向下取整得到分钟
+		CurSongLifeTimeSe = MusicCtr.currentTime % 60;//对60求余得到秒钟
+		
+		//输出
+		TimeText.innerHTML = Math.floor(CurSongLifeTimeMi) + ":" + 
+			Math.floor(CurSongLifeTimeSe) + "/" + SongLifeTimeMi + ":" +
+			SongLifeTimeSe;
+		
+		//判断是否播放完毕
+		if(CurSongLifeTimeMi>=SongLifeTimeMi&&CurSongLifeTimeSe>=SongLifeTimeSe)
+		{
+			alert("播放完毕。");
+			PlayStatus = false;//结束进度更新
+		}
+	}
+	//实现音源和歌曲图片的切换
+	function BeginSwitch()
+	{
+		//切换歌曲后需要暂停播放并重置参数
+		if(PlayStatus)
+		{
+			PlayStatus=false;
+			CurSongLifeTimeMi=0;
+			CurSongLifeTimeSe=0;
+		}
+		//判断条件是否满足
+		var MusicCtr = document.getElementById("audio1");//播放音频
+		var ImageCtr = document.getElementById("BoardBack");//显示歌曲图片
+		var TimeText = document.getElementById("SongTimeText");//显示时间
+		if(!TimeText)
+		{
+			alert("时间显示html文本组件未找到。");
+			return;
+		}
+		if(!ImageCtr)
+		{
+			alert("图片html组件未找到，");
+			return;
+		}
+		if(!MusicCtr)
+		{
+			alert("音频html组件未找到。");
+			return;
+		}
+		if(MusicSrcPath=="")
+		{
+			alert("音源路径为空。");
+			return;
+		}
+		if(ImageSrcPath=="")
+		{
+			alert("图片源路径为空。");
+			return;
+		}
+		
+		//切换显示和音源
+		MusicCtr.src = MusicSrcPath;
+		ImageCtr.src = ImageSrcPath;
+		//显示歌曲总时长
+		TimeText.innerHTML = "00:00"+"/"+SongLifeTimeMi+":"+SongLifeTimeSe;
+	}
+	//播放音乐
+	function PlaySong()
+	{
+		var MusicCtr = document.getElementById("audio1");//显示歌曲图片
+		if(!MusicCtr)
+		{
+			alert("音频html组件未找到。");
+			return;
+		}
+		if(MusicCtr.src=="")
+		{
+			alert("音源为空。")
+			return;
+		}
+		MusicCtr.play();//播放
+		PlayStatus = true;//更新播放状态
+		setInterval("ShowTime()",1000);//开始更新进度
+	}
+	//暂停音乐播放
+	function PauseSong()
+	{
+		var MusicCtr = document.getElementById("audio1");//显示歌曲图片
+		if(!MusicCtr)
+		{
+			alert("音频html组件未找到。");
+			return;
+		}
+		MusicCtr.pause();
+		PlayStatus = false;//更新播放状态
+	}
+</script>
+<style>
+	body
+	{
+		width: 1000px;
+		height: 1500px;
+		background-image:url("backg.jpg");
+		background-size:cover;
+		background-repeat: no-repeat;
+	}
+	/*第一个div一系列*/
+	/*设置下拉按钮的样式*/
+	.dropdown
+	{
+		height: 700px;
+		width: 500px;
+		/*定位*/
+		position: relative;
+		left: 25%;
+		top: 100px;
+		display: inline-block;
+	}
+	.dropbtn 
+	{
+		background-color: darkblue;
+		color: white;		
+		width: 327px;
+		height: 100px;
+		font-size: 30px;
+		border: none;
+		cursor: pointer;
+		background-color: aqua;
+		position: absolute;
+		display: block;/*块级标签*/
+		left: 337px;
+		top: 0px;
+	}
+	.dropdown-content 
+	{
+		display: none;
+		position: absolute;/*绝对定位*/
+		background-color: #f9f9f9;
+		min-width: 327px;
+		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		z-index: 1;
+		left: 337px;
+		top: 100px;
+}
+    .dropdown-content a 
+	{
+		color: black;
+		
+		text-decoration: none;
+		display: block;
+		padding: 16px 13px
+		background-color: blueviolet;
+	}
+	.dropdown-content a:hover {background-color: #f1f1f1}
+	.dropdown:hover .dropdown-content 
+	{
+		display: block;
+	}
+	
+/*播放面板*/
+	#BoardKuan
+	{
+		display: block;
+		position: absolute;
+		width: 416px;
+		height: 274px;
+		/*position*/
+		top: 162px;
+		left: 172px;
+		z-index: 2;
+	}
+	#BoardBack
+	{
+		display: block;
+		position: absolute;
+		width: 360px;
+		height: 240px;
+		/*position*/
+		top: 180px;
+		left: 200px;
+		z-index: 1;
+	}
+	#BoardTimeB
+	{
+		display: block;
+		position: absolute;
+		width: 416px;
+		height: 50px;
+		/*position*/
+		top: 430px;
+		left: 178px;
+		z-index: 1;
+	}
+	#SongTimeText
+	{
+		display: block;
+		position: absolute;
+		
+		font-size: 20px;
+		/*position*/
+		top: 420px;
+		left: 330px;
+		z-index: 1;
+	}
+	#BoardPlay
+	{
+		display: block;
+		position: absolute;
+		width: 40px;
+		height: 40px;
+		/*position*/
+		top: 433px;
+		left: 180px;
+		z-index: 2;
+	}
+	#BoardPause
+	{
+		display: block;
+		position: absolute;
+		width: 40px;
+		height: 40px;
+		/*position*/
+		top: 433px;
+		left: 530px;
+		z-index: 2;
+	}
+	/*右上角的旋转光盘*/
+	.turn
+	{
+		display: block;
+		position: absolute;
+		/*Size*/
+		width: 100px;
+		height: 100px;
+		/*Position*/
+		top: 10px;
+		right: 10px;
+		
+		animation-name: turn;
+		animation-duration: 1s;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+	}
+	@keyframes turn
+	{
+		0%{-webkit-transform:rotate(0deg);}
+		10%{-webkit-transform:rotate(36deg);}
+		20%{-webkit-transform:rotate(72deg);}
+		30%{-webkit-transform:rotate(108deg);}
+		40%{-webkit-transform:rotate(144deg);}
+		50%{-webkit-transform:rotate(180deg);}
+		60%{-webkit-transform:rotate(216deg);}
+		70%{-webkit-transform:rotate(252deg);}
+	    80%{-webkit-transform:rotate(288deg);}
+		90%{-webkit-transform:rotate(324deg);}
+		100%{-webkit-transform:rotate(360deg);}
+	}
+</style>
+</head>
+
+<body>
+<h1>日漫音乐</h1>
+<div class="dropdown">
+	<button class="dropbtn">MusicList</button>	
+	<div class="dropdown-content">
+		<a href="#" onClick="switch2Song1()">总之就是非常可爱</a>
+		<a href="#" onClick="switch2Song2()">超时空要塞Δ</a>
+	</div>
+	<audio id="audio1" src="#"></audio>
+</div>
+<div class="MusicBoard">
+	<img id="BoardKuan" src="backg_div.png"/>
+	<img id="BoardBack" src="defaultBack.png"/>
+	<img id="BoardTimeB" src="PanelBackImg.png"/>
+	<p id="SongTimeText">00:00/00:00</p>
+	<img id="BoardPlay" onClick="PlaySong()" src="Start003.png"/>
+	<img id="BoardPause" onClick="PauseSong()" src="pause.png"/>
+</div>
+<img class="turn" src="GuanPan.png"/>
+</body>
+</html>
