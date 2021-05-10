@@ -1,0 +1,338 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>menu</title>
+</head>
+<script>
+	var PlayStatus = false;
+	function JumpToLXH()
+	{
+		alert("3s后，前往罗小黑战记播放页面。");
+		setTimeout("javascript:location.href='https://urlify.cn/FfAbm2'",3000);
+	}
+	function JumpToNNT()
+	{
+		alert("3s后，前往那年那兔那些事播放页面。");
+		setTimeout("javascript:location.href='https://urlify.cn/N77VBr'",3000);
+	}
+	function JumpToYH()
+	{
+		alert("3s后，前往银魂播放页面。");
+		setTimeout("javascript:location.href='https://urlify.cn/ZFVbam'",3000);
+	}
+	function JumpToWebAV()
+	{
+		alert("3s后，前往网页视频页面。");
+		setTimeout("javascript:location.href='WebAv.html'",3000);		
+	}
+	function JumpToWebAU()
+	{
+		alert("3s后，前往网页歌曲页面。");
+		setTimeout("javascript:location.href='WebAu.html'",3000);
+	}
+	function onbgmBD()
+	{
+		var audio = document.getElementById("backAudio");
+		if(!audio)
+		{
+			alert("音频组件未找到。");
+			return;
+		}
+		var img;
+		//处于播放状态时获取的应该是
+		//"playbgm"状态
+		if(PlayStatus)
+		{
+			img = document.getElementById("playbgm");
+			if(!img)
+			{
+				alert("图像id未找到。");
+				return;
+			}
+			//修改id，暂停css动画的播放
+			img.id = "pausebgm";
+			//停止音乐播放
+			audio.pause();
+			//设置播放状态
+			PlayStatus=false;
+		}
+		else
+		{
+			img = document.getElementById("pausebgm");
+			if(!img)
+			{
+				alert("图像id未找到。");
+				return;
+			}
+			//修改id，暂停css动画的播放
+			img.id = "playbgm";
+			//播放背景音乐
+			audio.play();
+			//设置播放状态
+			PlayStatus=true;			
+		}
+	}
+</script>
+<style>
+	/*背景设置*/
+	.hback
+	{
+		width: 1050px;
+		height: 1500px;
+		background-image: url("image/backImg1.jpg");
+		background-size: cover;		
+	}
+	/*动漫区*/
+	#ht1
+	{
+		position: absolute;
+		display: block;
+		font-size: 30px;
+		color: burlywood;
+		left: 10px;
+		top: 20px;
+	}
+	#anim1_kuan
+	{
+		position: absolute;
+		display: block;
+		pointer-events: none;/*使点击事件穿透本层元素*/
+		width: 336px;
+		height: 210px;
+		top: 70px;
+		left: 80px;
+		z-index: 2;
+	}
+	#anim1
+	{
+		position: absolute;
+		display: block;
+		/*设置背景图片相关内容*/
+		background-image: url("image/luoxiaohei.jpg");
+		background-size: cover;/*设置图片为铺满*/
+		width: 240px;
+		height: 150px;
+		top: 110px;
+		left: 126px;
+		z-index: 1;
+	}
+	#anim1_item
+	{
+		position: absolute;
+		display: block;
+		color: antiquewhite;
+		font-size: 25px;
+		top: 240px;
+		left: 190px;
+	}
+	#anim2_kuan
+	{
+		position: absolute;
+		display: block;
+		pointer-events: none;/*使点击事件穿透本层元素*/
+		width: 336px;
+		height: 210px;
+		top: 70px;
+		left: 400px;
+		z-index: 2;
+	}
+	#anim2
+	{
+		position: absolute;
+		display: block;
+		width: 240px;
+		height: 150px;
+		object-fit: contain;
+		top: 105px;
+		left: 445px;
+	}
+	#anim2_item
+	{
+		position: absolute;
+		display: block;
+		color: antiquewhite;
+		font-size: 25px;
+		top: 240px;
+		left: 490px;
+	}
+	#anim3_kuan
+	{
+		position: absolute;
+		display: block;
+		pointer-events: none;/*使点击事件穿透本层元素*/
+		width: 336px;
+		height: 210px;
+		top: 70px;
+		left: 700px;
+		z-index: 2;	
+	}
+	#anim3
+	{
+		position: absolute;
+		display: block;
+		width: 230px;
+		height: 140px;
+		object-fit: fill;
+		top: 110px;
+		left: 747px;		
+	}
+	#anim3_item
+	{
+		position: absolute;
+		display: block;
+		color: antiquewhite;
+		font-size: 25px;
+		top: 240px;
+		left: 840px;
+	}
+	/*网页视频*/
+	#ht2
+	{
+		position: absolute;
+		display: block;
+		font-size: 30px;
+		color: burlywood;
+		left: 10px;
+		top: 340px;
+	}
+	#webav_kuan
+	{
+		position: absolute;
+		display: block;
+		pointer-events: none;/*使点击事件穿透本层元素*/
+		width: 336px;
+		height: 210px;
+		top: 400px;
+		left: 80px;
+		z-index: 2;			
+	}
+	#webav
+	{
+		position: absolute;
+		display: block;
+		width: 240px;
+		height: 150px;
+		object-fit: fill;
+		top: 440px;
+		left: 126px;	
+	}
+	#webav_item
+	{
+		position: absolute;
+		display: block;
+		pointer-events: none;/*防止点击事件阻挡*/
+		color: antiquewhite;
+		font-size: 25px;
+		top: 470px;
+		left: 200px;	
+	}
+	/*网页歌曲*/
+	#ht3
+	{
+		position: absolute;
+		display: block;
+		font-size: 30px;
+		color: burlywood;
+		left: 10px;
+		top: 600px;	
+	}
+	#webau_kuan
+	{
+		position: absolute;
+		display: block;
+		pointer-events: none;/*使点击事件穿透本层元素*/
+		width: 336px;
+		height: 210px;
+		top: 670px;
+		left: 80px;
+		z-index: 2;		
+	}
+	#webau
+	{
+		position: absolute;
+		display: block;
+		width: 240px;
+		height: 150px;
+		object-fit: fill;
+		top: 710px;
+		left: 126px;		
+	}
+	#webau_item
+	{
+		position: absolute;
+		display: block;
+		pointer-events: none;/*防止点击事件阻挡*/
+		color: antiquewhite;
+		font-size: 25px;
+		top: 740px;
+		left: 200px;
+	}
+	/*右上角的光盘相关*/
+	#pausebgm
+	{
+		position: absolute;
+		display: block;
+		width: 100px;
+		height: 100px;
+		top: 10px;
+		right: 10px;
+	}
+	#playbgm
+	{
+		position: absolute;
+		display: block;
+		width: 100px;
+		height: 100px;
+		top: 10px;
+		right: 10px;	
+		/*动画设置*/
+		animation-name: turn;
+		animation-duration: 1s;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+	}
+	@keyframes turn
+	{
+		0%{-webkit-transform:rotate(0deg);}
+		10%{-webkit-transform:rotate(36deg);}
+		20%{-webkit-transform:rotate(72deg);}
+		30%{-webkit-transform:rotate(108deg);}
+		40%{-webkit-transform:rotate(144deg);}
+		50%{-webkit-transform:rotate(180deg);}
+		60%{-webkit-transform:rotate(216deg);}
+		70%{-webkit-transform:rotate(252deg);}
+	    80%{-webkit-transform:rotate(288deg);}
+		90%{-webkit-transform:rotate(324deg);}
+		100%{-webkit-transform:rotate(360deg);}
+	}	
+</style>
+<body class="hback">
+	<h1 id="ht1">动漫区</h1>
+	<div class="MovieFileds">
+		<img id="anim1_kuan" src="image/kuanfm.png" alt="框1"/>
+		<img id="anim1" onClick="JumpToLXH()" src="image/luoxiaohei.jpg" alt="罗小黑战记"/>
+		<p id="anim1_item">罗小黑战记</p>
+		<img id="anim2_kuan" src="image/kuanfm.png" alt="框2"/>
+		<img id="anim2" onClick="JumpToNNT()" src="image/naniannatu.jpg" alt="那年那兔那些事"/>
+		<p id="anim2_item">那年那兔那些事</p>
+		<img id="anim3_kuan" src="image/kuanfm.png" alt="框3"/>
+		<img id="anim3" onClick="JumpToYH()" src="image/yh.jpg" alt="银魂"/>
+		<p id="anim3_item">银魂</p>
+	</div>
+	<h2 id="ht2">网页视频</h2>
+	<div class="WebAV">
+		<img id="webav_kuan" src="image/kuanfm.png" alt="框4"/>
+		<img id="webav" onClick="JumpToWebAV()" src="image/defaultBack.png" alt="网页视频" />
+		<p id="webav_item">网页视频</p>
+	</div>
+	<h3 id="ht3">网页歌曲</h3>
+	<div class="WebAudio">
+		<img id="webau_kuan" src="image/kuanfm.png" alt="框4"/>
+		<img id="webau" onClick="JumpToWebAU()" src="image/defaultBack.png" alt="网页歌曲" />
+		<p id="webau_item">网页歌曲</p>
+	</div>
+	<audio id="backAudio" src="sounds/bgm_tuanzi.flac"></audio>
+	<img id="pausebgm" onClick="onbgmBD()" src="image/GuanPan.png" alt="bgmImg" />
+</body>
+</html>
